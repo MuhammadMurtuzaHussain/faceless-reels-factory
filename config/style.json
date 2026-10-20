@@ -1,0 +1,166 @@
+{
+  "name": "light-editorial-v2",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "tail_seconds": 1.0,
+  "colors": {
+    "bg_top": "#efece7",
+    "bg_bottom": "#e4e0d9",
+    "card": "#fbf8f3",
+    "line": "#e6dfd5",
+    "chip": "#f1ebe2",
+    "shadow": "#5a4636",
+    "ink": "#2a211c",
+    "muted": "#857a70",
+    "accent": "#d97757",
+    "sage": "#7fa27f",
+    "mustard": "#d9a441",
+    "slate": "#6b86b3",
+    "plum": "#a2708f",
+    "sand": "#ecdcc6"
+  },
+  "fonts": {
+    "headline": {
+      "family": "Reel Display",
+      "weight": 700,
+      "file": "Fraunces72ptSoft-Bold.ttf"
+    },
+    "sub": {
+      "family": "Reel Text",
+      "weight": 400,
+      "file": "Fraunces9ptSoft-Regular.ttf"
+    },
+    "caption": {
+      "family": "Inter",
+      "weight": 600,
+      "file": "Inter-SemiBold.ttf"
+    },
+    "ui": {
+      "family": "Inter",
+      "weight": 600,
+      "file": "Inter-SemiBold.ttf"
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 500,
+      "file": "Inter-Medium.ttf"
+    },
+    "title": {
+      "family": "Inter Display",
+      "weight": 900,
+      "file": "InterDisplay-Black.ttf"
+    }
+  },
+  "captions": {
+    "font_size": 44,
+    "max_width": 760,
+    "max_words": 4,
+    "center_y": 1400,
+    "uppercase": false,
+    "word_gap": 0.28,
+    "upcoming_opacity": 0.32
+  },
+  "safe_zone": {
+    "left": 60,
+    "right": 1020,
+    "top": 200,
+    "bottom": 1536
+  },
+  "transition_seconds": 0.4,
+  "handle": "@yourhandle",
+  "niche": "tech, explained simply",
+  "profile": {
+    "username": "yourhandle",
+    "name": "Your Name",
+    "bio": [
+      "One line about what you post,",
+      "and who it's for."
+    ],
+    "avatar": null
+  },
+  "cta": {
+    "enabled": true,
+    "spoken": "Follow for more stories like this.",
+    "label": "Before you go",
+    "headline": "More stories, *every week*.",
+    "hold_seconds": 2.8
+  },
+  "voice": {
+    "model": "eleven_v4",
+    "stability": 0.45,
+    "similarity_boost": 0.85,
+    "style": 0.15,
+    "speed": 1.0,
+    "use_speaker_boost": true,
+    "output_format": "mp3_44100_128",
+    "monthly_characters": null
+  },
+  "audio": {
+    "voice_lufs": -14,
+    "sfx_gain": 0.14,
+    "music": {
+      "source": "generated",
+      "lufs": -22,
+      "file": null,
+      "gain": 1.0,
+      "mood": null,
+      "bpm": null,
+      "drums": true,
+      "duck_threshold": 0.08,
+      "duck_ratio": 4
+    },
+    "enhance": {
+      "enabled": true,
+      "preset": "balanced"
+    },
+    "tighten": {
+      "enabled": true,
+      "lead": 0.08,
+      "tail": 0.35,
+      "max_pause": 0.3,
+      "min_pause": 0.42
+    }
+  },
+  "themes": {
+    "story": {
+      "colors": {
+        "bg_top": "#151a28",
+        "bg_bottom": "#0a0c14",
+        "card": "#1c2232",
+        "line": "#2c3446",
+        "chip": "#262d3f",
+        "shadow": "#000000",
+        "ink": "#f5f1ea",
+        "muted": "#9aa1b4",
+        "accent": "#ff7a59",
+        "sage": "#6fcf97",
+        "mustard": "#f2c14e",
+        "slate": "#6c8cff",
+        "plum": "#c58cf2",
+        "sand": "#e8d7bf",
+        "danger": "#ff4d5e",
+        "caption_bg": "#1c2232",
+        "caption_ink": "#ffffff"
+      },
+      "fonts": {
+        "caption": {
+          "family": "Inter Display",
+          "weight": 700,
+          "file": "InterDisplay-Bold.ttf"
+        }
+      },
+      "captions": {
+        "mode": "kinetic",
+        "font_size": 78,
+        "max_width": 820,
+        "max_words": 3,
+        "center_y": 330,
+        "uppercase": false,
+        "word_gap": 0.26
+      },
+      "transition_seconds": 0.45,
+      "chrome_y": 1548
+    }
+  }
+}

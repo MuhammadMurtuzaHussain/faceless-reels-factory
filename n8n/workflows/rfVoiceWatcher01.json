@@ -1,0 +1,290 @@
+{
+  "id": "rfVoiceWatcher01",
+  "name": "Reel Factory · 2 Voiceover watcher",
+  "nodes": [
+    {
+      "id": "b153cb8c-8a12-5b8d-a216-d39f4f7b9cd0",
+      "name": "Every minute",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 1
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "6e3dd886-c3c5-5cc8-9c7f-08553463cae5",
+      "name": "Render next voiceover",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        240,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.REELFACTORY_API_URL }}/watch",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Reel-Token",
+              "value": "={{ $env.REELFACTORY_API_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({}) }}",
+        "options": {
+          "timeout": 900000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 400
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "f322680b-7780-5f36-ab54-a62f686d514a",
+      "name": "Messages to send",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        -120
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// one Telegram message per API response that has text to say\nreturn $input.all()\n  .filter(i => !i.json.idle && i.json.reply)\n  .map(i => ({ json: { text: i.json.reply } }));"
+      }
+    },
+    {
+      "id": "96bbf8a6-6940-5c8b-ae95-a2623997bd2e",
+      "name": "Telegram: send message",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        -120
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.TELEGRAM_API_BASE }}/bot{{ $env.TELEGRAM_BOT_TOKEN }}/sendMessage",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ chat_id: $env.TELEGRAM_CHAT_ID, text: $json.text, parse_mode: 'HTML', link_preview_options: { is_disabled: true } }) }}",
+        "options": {
+          "timeout": 30000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 400
+            }
+          }
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    },
+    {
+      "id": "1140fa5e-597f-56bb-bfb9-1c243495b6cf",
+      "name": "Files to send",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        120
+      ],
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javaScript",
+        "jsCode": "// one item per attached file; choose the Telegram method by file kind\nconst methods = { contact: ['sendPhoto', 'photo'], video: ['sendVideo', 'video'] };  // cover goes as a file: full resolution\nconst out = [];\nfor (const i of $input.all()) {\n  if (i.json.idle) continue;\n  for (const f of (i.json.files || [])) {\n    const [method, field] = methods[f.kind] || ['sendDocument', 'document'];\n    out.push({ json: { ...f, method, field } });\n  }\n}\nreturn out;"
+      }
+    },
+    {
+      "id": "8d63c1d3-21e7-5021-b994-28010bbd08ed",
+      "name": "Fetch file from API",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        120
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.REELFACTORY_API_URL }}/file",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "id",
+              "value": "={{ $json.id }}"
+            },
+            {
+              "name": "kind",
+              "value": "={{ $json.kind }}"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "X-Reel-Token",
+              "value": "={{ $env.REELFACTORY_API_TOKEN }}"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 400
+            }
+          },
+          "response": {
+            "response": {
+              "responseFormat": "file",
+              "outputPropertyName": "data"
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "b9c66d11-5765-54d3-980d-f77556745e52",
+      "name": "Telegram: send file",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        120
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.TELEGRAM_API_BASE }}/bot{{ $env.TELEGRAM_BOT_TOKEN }}/{{ $('Files to send').item.json.method }}",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "chat_id",
+              "value": "={{ $env.TELEGRAM_CHAT_ID }}"
+            },
+            {
+              "name": "caption",
+              "value": "={{ $('Files to send').item.json.caption }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "={{ $('Files to send').item.json.field }}",
+              "inputDataFieldName": "data"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 300000,
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 400
+            }
+          }
+        }
+      },
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 2000
+    }
+  ],
+  "connections": {
+    "Render next voiceover": {
+      "main": [
+        [
+          {
+            "node": "Messages to send",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Files to send",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Messages to send": {
+      "main": [
+        [
+          {
+            "node": "Telegram: send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Files to send": {
+      "main": [
+        [
+          {
+            "node": "Fetch file from API",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch file from API": {
+      "main": [
+        [
+          {
+            "node": "Telegram: send file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every minute": {
+      "main": [
+        [
+          {
+            "node": "Render next voiceover",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all"
+  },
+  "active": false,
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "tags": []
+}

@@ -1,0 +1,40 @@
+{
+  "max_age_days": 3,
+  "max_entries_per_feed": 40,
+  "shortlist_size": 10,
+  "top_picks": 3,
+  "max_per_source": 3,
+  "feeds": [
+    {"name": "The Verge AI", "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml", "weight": 1.0},
+    {"name": "TechCrunch AI", "url": "https://techcrunch.com/category/artificial-intelligence/feed/", "weight": 1.0},
+    {"name": "Ars Technica", "url": "https://feeds.arstechnica.com/arstechnica/technology-lab", "weight": 0.9},
+    {"name": "MIT Technology Review AI", "url": "https://www.technologyreview.com/topic/artificial-intelligence/feed", "weight": 1.0},
+    {"name": "WIRED AI", "url": "https://www.wired.com/feed/tag/ai/latest/rss", "weight": 1.0},
+    {"name": "404 Media", "url": "https://www.404media.co/rss/", "weight": 0.9},
+    {"name": "Hacker News (150+ pts)", "url": "https://hnrss.org/frontpage?points=150", "weight": 0.8},
+    {"name": "OpenAI News", "url": "https://openai.com/news/rss.xml", "weight": 0.9},
+    {"name": "Google AI Blog", "url": "https://blog.google/technology/ai/rss/", "weight": 0.9},
+    {"name": "Hugging Face Blog", "url": "https://huggingface.co/blog/feed.xml", "weight": 0.6},
+    {"name": "Simon Willison", "url": "https://simonwillison.net/atom/everything/", "weight": 0.6}
+  ],
+  "ranking": {
+    "weights": {"freshness": 0.25, "relevance": 0.25, "novelty": 0.15, "momentum": 0.1, "hook": 0.15, "visual": 0.1},
+    "relevance_terms": {
+      "ai": 1.0, "artificial intelligence": 1.0, "chatgpt": 1.0, "openai": 0.9, "anthropic": 0.9, "claude": 0.9,
+      "gemini": 0.9, "llm": 0.9, "model": 0.4, "agent": 0.7, "agents": 0.7, "robot": 0.6, "deepfake": 0.9,
+      "privacy": 0.8, "data": 0.4, "chip": 0.5, "nvidia": 0.6, "apple": 0.5, "meta": 0.5, "google": 0.5,
+      "microsoft": 0.5, "smartphone": 0.5, "app": 0.4, "security": 0.6, "hack": 0.7, "scam": 0.8, "voice": 0.5,
+      "automation": 0.6, "jobs": 0.6, "open source": 0.6
+    },
+    "hook_terms": ["you", "your", "why", "how", "secret", "hidden", "leak", "leaked", "banned", "ban", "free", "first",
+                   "new", "launch", "launches", "clone", "fake", "scam", "lawsuit", "replace", "jobs", "warning",
+                   "billion", "million", "record", "breaks", "hacked", "fails", "vs"],
+    "visual_families": {
+      "privacy/data": ["privacy", "data", "tracking", "track", "leak", "leaked", "surveillance", "profile", "cookies"],
+      "comparison/benchmark": ["vs", "versus", "benchmark", "beats", "faster", "cheaper", "compare", "ranking"],
+      "product/ui": ["launch", "launches", "app", "feature", "update", "release", "releases", "new", "tool"],
+      "security/scam": ["scam", "hack", "hacked", "breach", "clone", "fake", "deepfake", "phishing"],
+      "money/market": ["billion", "million", "raises", "funding", "$", "price", "valuation"]
+    }
+  }
+}

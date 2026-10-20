@@ -1,0 +1,8 @@
+{
+  "name": "reelfactory-n8n",
+  "private": true,
+  "description": "Local n8n control panel for the AI Reel Factory",
+  "dependencies": {
+    "n8n": "2.43.8"
+  }
+}

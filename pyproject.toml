@@ -1,0 +1,22 @@
+[project]
+name = "reelfactory"
+version = "0.1.0"
+description = "Local-first AI Reel Factory: voiceover + original SVG motion graphics -> vertical MP4"
+requires-python = ">=3.11"
+dependencies = ["pillow>=11", "numpy>=2", "feedparser>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[project.scripts]
+reelfactory = "reelfactory.pipeline:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

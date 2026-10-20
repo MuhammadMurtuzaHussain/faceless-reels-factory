@@ -1,0 +1,67 @@
+{
+  "id": "EXAMPLE-001",
+  "title": "Why your phone battery dies faster in the cold",
+  "theme": "story",
+  "script": "Ever notice your phone dies faster in winter? It's not broken. Inside the battery, tiny charged particles carry the power. When it's cold, they slow down, like people walking through thick mud. So the phone sees less energy and shuts down early. Warm it back up and most of that charge returns. The fix is simple: keep it in an inside pocket.",
+  "emphasis": ["winter", "slow", "mud", "returns", "pocket"],
+  "cast": {
+    "you": {"kind": "person", "color": "slate", "outfit": ["glasses"]},
+    "ion": {"kind": "bot", "color": "accent", "name": "Ion"}
+  },
+  "scenes": [
+    {"type": "story", "at": "Ever notice", "params": {
+      "set": "night",
+      "camera": {"moves": [{"at": "dies faster", "zoom": 1.15, "focus": "you", "dur": 0.8}]},
+      "elements": [
+        {"el": "actor", "who": "you", "id": "you", "x": 360, "enter": "walk-left", "mood": "worried",
+         "do": [{"at": "in winter?", "emote": "?", "pose": "shrug"}]},
+        {"el": "prop", "kind": "phone", "id": "phone", "x": 720, "y": "mid", "at": "your phone"},
+        {"el": "label", "text": "1% battery", "x": 600, "y": 1440, "at": "dies faster"}
+      ]}},
+    {"type": "story", "at": "It's not broken.", "params": {
+      "set": "lab", "transition": "zoom",
+      "elements": [
+        {"el": "prop", "kind": "meter", "id": "meter", "x": 540, "y": "mid", "level": 0.8, "at": "Inside the battery"},
+        {"el": "swarm", "who": "ion", "from": [180, 1300], "to": "meter", "count": 8, "at": "tiny charged particles"},
+        {"el": "label", "text": "charged particles", "x": 540, "y": 1440, "at": "carry the power."}
+      ]}},
+    {"type": "story", "at": "When it's cold,", "params": {
+      "set": "island", "transition": "whip",
+      "elements": [
+        {"el": "actor", "who": "ion", "id": "ion", "x": 300, "enter": "drop", "mood": "sleepy",
+         "do": [{"at": "they slow down,", "move": {"x": 520}, "dur": 2.5, "emote": "sweat"}]},
+        {"el": "prop", "kind": "lava", "x": 700, "at": "thick mud."},
+        {"el": "stamp", "text": "SLOW", "x": 540, "y": 900, "at": "thick mud."}
+      ]}},
+    {"type": "story", "at": "So the phone", "params": {
+      "set": "room", "transition": "fade",
+      "elements": [
+        {"el": "prop", "kind": "phone", "x": 540, "y": "mid", "at": "So the phone"},
+        {"el": "counter", "x": 660, "y": 1180, "from": 40, "to": 0, "suffix": "%", "at": "less energy", "label": "what it thinks is left"},
+        {"el": "actor", "who": "you", "x": 200, "mood": "shock", "do": [{"at": "shuts down early.", "pose": "panic", "emote": "!!"}]}
+      ]}},
+    {"type": "story", "at": "Warm it back", "params": {
+      "set": "stage", "transition": "iris",
+      "elements": [
+        {"el": "actor", "who": "ion", "id": "ion2", "x": 540, "enter": "pop", "mood": "grin",
+         "do": [{"at": "most of that charge", "pose": "cheer", "emote": "sparkle"}]},
+        {"el": "prop", "kind": "meter", "x": 820, "y": "mid", "level": 0.2, "at": "Warm it back",
+         "do": [{"at": "returns.", "level": 0.75}]}
+      ]}},
+    {"type": "story", "at": "The fix is", "params": {
+      "set": "city", "transition": "zoom",
+      "title": {"text": "Inside pocket, *warm battery*.", "at": "inside pocket."},
+      "elements": [
+        {"el": "actor", "who": "you", "x": 540, "mood": "proud", "do": [{"at": "keep it", "pose": "hold"}]}
+      ]}}
+  ],
+  "thumbnail": {"label": "Phone tips", "headline": "Why winter *kills your battery*", "set": "night",
+                "actor": {"who": "you", "mood": "shock", "pose": "panic"}},
+  "claims": [
+    {"text": "Lithium-ion batteries deliver less usable energy when cold, and recover when warmed.", "status": "general",
+     "note": "Widely documented battery behaviour; check your phone maker's support page before posting."}
+  ],
+  "sources": [{"title": "Your phone maker's battery guidance", "url": "https://support.apple.com/en-us/102394"}],
+  "caption": {"hook": "Your phone isn't broken, it's cold.", "body": "Cold slows the particles inside the battery, so the phone shuts down early. Warm it up and most of the charge comes back.",
+              "cta": "Follow for more everyday tech, explained simply.", "hashtags": ["#tech", "#battery", "#explained"]}
+}
